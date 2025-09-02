@@ -1,0 +1,60 @@
+# =========================
+# Java / Maven
+# =========================
+target/
+*.class
+.gradle/
+
+# Maven Wrapper (스크립트/설정은 커밋)
+.mvn/*
+!.mvn/wrapper/
+!.mvn/wrapper/maven-wrapper.properties
+!mvnw
+!mvnw.cmd
+
+# =========================
+# IDE / Tools
+# =========================
+.idea/
+*.iml
+.vscode/
+.project
+.classpath
+.settings/
+
+# =========================
+# Logs / OS junk
+# =========================
+**/*.log
+**/*.tmp
+**/.DS_Store
+Thumbs.db
+surefire-reports/
+
+# =========================
+# Infra (레포에 포함)
+# Dockerfile / docker-compose / docker/** 는 커밋 대상 → ignore 하지 않음
+# =========================
+
+# =========================
+# Env files (절대 커밋 금지) - 예시만 허용
+# =========================
+.env
+.env.*
+!.env.dev.example
+!.env.prod.example
+
+# =========================
+# Secrets / Keys (절대 커밋 금지)
+# =========================
+*.pem
+*.p12
+*.jks
+*.keystore
+*.p8
+*.key
+*.crt
+
+# 특정 민감 JSON만 차단
+*service-account*.json
+*-firebase-*.json

@@ -1,0 +1,25 @@
+# VCS / CI
+.git
+.github
+
+# IDE / Tooling
+.idea
+*.iml
+.mvn
+
+# Build outputs / logs
+target
+**/*.log
+
+# OS junk
+**/.DS_Store
+
+# Compose & runtime infra (이미지에 불필요)
+docker/
+docker-compose*.yml
+
+# Env & secrets (절대 이미지에 포함 X)
+.env*
+*.pem
+*.key
+*.crt

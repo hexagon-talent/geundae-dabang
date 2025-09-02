@@ -1,0 +1,136 @@
+networks:
+  web: {}
+  internal: {}
+
+volumes:
+  dbdata:
+  redisdata:
+  certbot-conf:
+  certbot-www:
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3306:3306"
+    env_file:
+      - .env.${ENV}
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: appdb
+      MYSQL_USER: ${SPRING_DATASOURCE_USERNAME:-alley_user}
+      MYSQL_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+      TZ: ${TZ:-Asia/Seoul}
+    command: >
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_0900_ai_ci
+      --sql_mode=STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
+    networks: [internal]
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ./docker/mysql/init/${ENV}:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL","mysqladmin ping -h 127.0.0.1 -p$$MYSQL_ROOT_PASSWORD || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+
+  redis:
+    image: redis:7.2
+    container_name: redis
+    restart: unless-stopped
+    command: ["redis-server","--appendonly","no"]
+    networks: [internal]
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD","redis-cli","ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+
+  app:
+    image: ${DOCKER_IMAGE:-gundaero-alley-api:dev}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app
+    restart: unless-stopped
+    env_file:
+      - .env.${ENV}
+    environment:
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+      SERVER_PORT: ${SERVER_PORT:-8080}
+
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+
+      SPRING_REDIS_HOST: ${SPRING_REDIS_HOST:-redis}
+      SPRING_REDIS_PORT: ${SPRING_REDIS_PORT:-6379}
+      SPRING_REDIS_PASSWORD: ${SPRING_REDIS_PASSWORD}
+
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_ACCESS_TOKEN_TTL: ${JWT_ACCESS_TOKEN_TTL}
+      JWT_REFRESH_TOKEN_TTL: ${JWT_REFRESH_TOKEN_TTL}
+
+      S3_BUCKET: ${S3_BUCKET}
+      S3_REGION: ${S3_REGION}
+
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS}
+
+      KAKAO_CLIENT_ID: ${KAKAO_CLIENT_ID}
+      KAKAO_REDIRECT_URI: ${KAKAO_REDIRECT_URI}
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks: [internal]
+    labels:
+      com.centurylinklabs.watchtower.enable: "${WATCHTOWER_ENABLE:-false}"
+    healthcheck:
+      test: ["CMD-SHELL","wget -qO- http://localhost:8080/actuator/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: nginx
+    restart: unless-stopped
+    depends_on:
+      app:
+        condition: service_healthy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/nginx/conf.d/app.${ENV}.conf:/etc/nginx/conf.d/app.conf:ro
+      - certbot-conf:/etc/letsencrypt
+      - certbot-www:/var/www/certbot
+    networks:
+      - web
+      - internal
+
+  certbot:
+    image: certbot/certbot:latest
+    container_name: certbot
+    restart: unless-stopped
+    volumes:
+      - certbot-conf:/etc/letsencrypt
+      - certbot-www:/var/www/certbot
+    entrypoint: /bin/sh
+    command: -c "trap exit TERM; while :; do sleep 12h & wait $${!}; certbot renew --webroot -w /var/www/certbot --agree-tos --non-interactive && nginx -s reload || true; done"
+    networks: [web]
+
+  watchtower:
+    image: containrrr/watchtower:latest
+    container_name: watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --label-enable --cleanup --interval 30
+    networks: [web]

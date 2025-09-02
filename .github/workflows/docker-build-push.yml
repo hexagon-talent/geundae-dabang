@@ -1,0 +1,66 @@
+name: build-and-push-docker
+
+on:
+  push:
+    branches: [ "main" ]     # main에 머지되면 latest 푸시
+    tags:     [ "v*.*.*" ]   # 릴리즈 태그도 푸시
+  pull_request:
+    branches: [ "main" ]     # PR은 빌드만(푸시 X)
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 멀티아키(amd64/arm64) 빌드를 위해 QEMU/Buildx 세팅
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # PR이 아닐 때만 Docker Hub 로그인
+      - name: Login to Docker Hub
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # 이미지 태그/라벨 자동 생성
+      - name: Docker meta (tags/labels)
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: sonej/gundaero-alley-api
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=ref,event=tag
+            type=sha
+          labels: |
+            org.opencontainers.image.title=gundaero-alley-api
+            org.opencontainers.image.source=${{ github.repository }}
+            org.opencontainers.image.revision=${{ github.sha }}
+
+      # 빌드 & (PR이 아니면) 푸시
+      - name: Build and (maybe) push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
