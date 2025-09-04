@@ -7,37 +7,18 @@ spring:
   application:
     name: gundaero-alley-api
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://mysql:3306/appdb_dev?allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Seoul}
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/appdb?useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Seoul}
     username: ${SPRING_DATASOURCE_USERNAME:alley_dev}
     password: ${SPRING_DATASOURCE_PASSWORD:devpass104}
     driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    database-platform: org.hibernate.dialect.MySQLDialect
-    hibernate:
-      ddl-auto: update
-    open-in-view: false
+
   data:
     redis:
-      host: ${SPRING_REDIS_HOST:redis}
+      host: ${SPRING_REDIS_HOST:localhost}
       port: ${SPRING_REDIS_PORT:6379}
-      password: ${SPRING_REDIS_PASSWORD:}
-  servlet:
-    multipart:
-      max-file-size: 10MB
-      max-request-size: 10MB
+      password: ${SPRING_REDIS_PASSWORD:}  # 비밀번호
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info
-  endpoint:
-    health:
-      show-details: never
-
-cors:
-  allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:3000,http://localhost:5173}
-
+# Swagger/OpenAPI (dev만 ON)
 springdoc:
   api-docs:
     enabled: true
@@ -46,12 +27,14 @@ springdoc:
     enabled: true
     path: /swagger-ui.html
 
+# JWT
 jwt:
   secret: ${JWT_SECRET:dev-secret}
   access-ttl: ${JWT_ACCESS_TOKEN_TTL:900}
   refresh-ttl: ${JWT_REFRESH_TOKEN_TTL:1209600}
 
+# S3
 aws:
   s3:
-    bucket: ${S3_BUCKET:gundaero-alley-prod-bucket}
+    bucket: ${S3_BUCKET:gundaero-alley-dev-bucket}
     region: ${S3_REGION:ap-northeast-2}
