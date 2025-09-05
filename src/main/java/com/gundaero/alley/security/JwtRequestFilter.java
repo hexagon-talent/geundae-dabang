@@ -29,26 +29,19 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     private static final AntPathMatcher PATH = new AntPathMatcher();
 
     private static final String[] WHITELIST = {
+            // 공개/인증 관련
             "/api/public/**",
             "/api/auth/kakao",
-            "/api/auth/refresh",
             "/api/auth/reissue",
-            "/login/oauth2/**",
-            "/oauth2/**",
+            "/api/auth/refresh",
 
-            // swagger & actuator
+            // Swagger & 관리
             "/swagger-ui/**",
             "/swagger-ui.html",
             "/v3/api-docs/**",
             "/actuator/**",
-
-            // 기타
             "/favicon.ico",
-            "/error",
-
-            // 츄가
-            "/api/ping",
-            "/api/**",
+            "/error"
 
     };
 

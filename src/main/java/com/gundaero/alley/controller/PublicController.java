@@ -39,20 +39,6 @@ public class PublicController {
     public Map<String, Object> ping2() {
         return Map.of("ok", true);
     }
-    @PostMapping("api/public//kakao")
-    public ResponseEntity<ApiResponse<String>> kakaoLogin(
-            @RequestBody KakaoLoginRequestDTO requestDTO, HttpServletResponse response) {
 
-        String kakaoAccessToken = requestDTO.getAccessToken();
-
-        KakaoProfileDTO profile = kakaoLoginService.getUserInfo(kakaoAccessToken);
-
-        User user = userService.upsertUser(profile);
-
-        String loginType = user.getCreatedAt().equals(user.getUpdatedAt()) ? "signUp" : "Login";
-        KakaoLoginResponseDTO tokenDTO = kakaoLoginService.createTokens(user, loginType);
-
-        return ResponseEntity.ok(ApiResponse.success("tokenDTO", tokenDTO));
-    }
 
 }
