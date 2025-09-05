@@ -6,12 +6,13 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
-import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Configuration
@@ -26,10 +27,15 @@ public class SwaggerConfig {
     private String prodServer;
 
     @Bean
-    public OpenAPI openAPI() {
+    public OpenAPI openAPI(Environment env) {
+        boolean isProd = Arrays.asList(env.getActiveProfiles()).contains("prod");
+
         List<Server> servers = new ArrayList<>();
-        servers.add(new Server().url(localServer).description("로컬 서버"));
-        servers.add(new Server().url(prodServer).description("운영 서버"));
+        if (isProd) {
+            servers.add(new Server().url(prodServer).description("운영 서버"));
+        } else {
+            servers.add(new Server().url(localServer).description("로컬 서버"));
+        }
 
         return new OpenAPI()
                 .info(new Info()
@@ -38,12 +44,13 @@ public class SwaggerConfig {
                         .version("v1.0.0"))
                 .servers(servers)
                 .addSecurityItem(new SecurityRequirement().addList(SCHEME))
-                .components(new Components()
-                        .addSecuritySchemes(SCHEME,
-                                new SecurityScheme()
-                                        .name(SCHEME)
-                                        .type(SecurityScheme.Type.HTTP)
-                                        .scheme("bearer")
-                                        .bearerFormat("JWT")));
+                .components(new Components().addSecuritySchemes(
+                        SCHEME,
+                        new SecurityScheme()
+                                .name(SCHEME)
+                                .type(SecurityScheme.Type.HTTP)
+                                .scheme("bearer")
+                                .bearerFormat("JWT")
+                ));
     }
 }
