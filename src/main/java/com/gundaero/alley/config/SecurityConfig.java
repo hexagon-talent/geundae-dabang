@@ -79,9 +79,10 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 );
 
-        // 필터 순서: Exception -> JWT -> UsernamePasswordAuthentication
-        http.addFilterBefore(jwtExceptionFilter, JwtRequestFilter.class);
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+
+        http.addFilterBefore(jwtExceptionFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterAfter(jwtRequestFilter, JwtExceptionFilter.class);
+
 
         return http.build();
     }
