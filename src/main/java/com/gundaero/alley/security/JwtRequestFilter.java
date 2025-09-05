@@ -35,11 +35,16 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             "/api/auth/reissue",
             "/login/oauth2/**",
             "/oauth2/**",
+
+            // swagger & actuator
             "/swagger-ui/**",
+            "/swagger-ui.html",
             "/v3/api-docs/**",
             "/actuator/**",
+
+            // 기타
             "/favicon.ico",
-            "/error" // 스프링 기본 에러 엔드포인트
+            "/error"
     };
 
     @Override
