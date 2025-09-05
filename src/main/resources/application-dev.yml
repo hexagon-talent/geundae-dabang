@@ -18,6 +18,14 @@ spring:
       port: ${SPRING_REDIS_PORT:6379}
       password: ${SPRING_REDIS_PASSWORD:}  # 비밀번호
 
+mybatis:
+  mapper-locations: classpath*:mapper/**/*.xml
+  type-aliases-package: com.gundaero.alley.**.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    default-fetch-size: 100
+    default-statement-timeout: 30
+
 # Swagger/OpenAPI (dev만 ON)
 springdoc:
   api-docs:
@@ -29,6 +37,17 @@ springdoc:
 
 # JWT
 jwt:
+  token:
+    secret:
+      key: ${JWT_SECRET:dev-secret}
+  access:
+    token:
+      expiration:
+        seconds: ${JWT_ACCESS_TOKEN_TTL:900}
+  refresh:
+    token:
+      expiration:
+        seconds: ${JWT_REFRESH_TOKEN_TTL:1209600}
   secret: ${JWT_SECRET:dev-secret}
   access-ttl: ${JWT_ACCESS_TOKEN_TTL:900}
   refresh-ttl: ${JWT_REFRESH_TOKEN_TTL:1209600}
@@ -38,3 +57,21 @@ aws:
   s3:
     bucket: ${S3_BUCKET:gundaero-alley-dev-bucket}
     region: ${S3_REGION:ap-northeast-2}
+
+kakao:
+  client-id:        ${KAKAO_CLIENT_ID:}
+  redirect-uri:     ${KAKAO_REDIRECT_URI:}
+  auth-uri:         ${KAKAO_AUTH_URI:https://kauth.kakao.com/oauth/authorize}
+  token-uri:        ${KAKAO_TOKEN_URI:https://kauth.kakao.com/oauth/token}
+  user-info-uri:    ${KAKAO_USER_INFO_URI:https://kapi.kakao.com/v2/user/me}
+  admin-key:        ${KAKAO_ADMIN_KEY:}
+
+swagger:
+  server:
+    local: http://localhost:8080
+    prod: https://gundaero.kozow.com
+
+logging:
+  level:
+    org.mybatis: DEBUG
+    org.apache.ibatis: DEBUG
