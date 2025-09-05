@@ -26,9 +26,11 @@ spring:
 # Swagger/OpenAPI (prod에서는 OFF)
 springdoc:
   api-docs:
-    enabled: false
+    enabled: true
+    path: /v3/api-docs
   swagger-ui:
-    enabled: false
+    enabled: true
+    path: /swagger-ui.html
 
 # 로깅
 logging:
