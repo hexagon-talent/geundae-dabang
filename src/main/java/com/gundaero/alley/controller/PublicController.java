@@ -39,7 +39,7 @@ public class PublicController {
     public Map<String, Object> ping2() {
         return Map.of("ok", true);
     }
-    @PostMapping("/kakao")
+    @PostMapping("api/public//kakao")
     public ResponseEntity<ApiResponse<String>> kakaoLogin(
             @RequestBody KakaoLoginRequestDTO requestDTO, HttpServletResponse response) {
 
