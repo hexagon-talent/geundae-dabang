@@ -23,7 +23,7 @@ spring:
       port: ${SPRING_REDIS_PORT:6379}
       password: ${SPRING_REDIS_PASSWORD:}
 
-# Swagger/OpenAPI (prod에서는 OFF)
+# Swagger/OpenAPI
 springdoc:
   api-docs:
     enabled: true
@@ -40,18 +40,7 @@ logging:
 
 # JWT
 jwt:
-  token:
-    secret:
-      key: ${JWT_SECRET:dev-secret}
-  access:
-    token:
-      expiration:
-        seconds: ${JWT_ACCESS_TOKEN_TTL:900}
-  refresh:
-    token:
-      expiration:
-        seconds: ${JWT_REFRESH_TOKEN_TTL:1209600}
-  secret: ${JWT_SECRET:dev-secret}
+  secret: ${JWT_SECRET}
   access-ttl: ${JWT_ACCESS_TOKEN_TTL:900}
   refresh-ttl: ${JWT_REFRESH_TOKEN_TTL:1209600}
 

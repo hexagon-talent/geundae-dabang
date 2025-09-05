@@ -28,14 +28,14 @@ mybatis:
     default-fetch-size: 100
     default-statement-timeout: 30
   mapper-locations: classpath*:mapper/**/*.xml
-  type-aliases-package: com.gundaero.alley.domain
+  #type-aliases-package: com.gundaero.alley.domain
 
 # 외부 서비스 프로퍼티 바인딩
 kakao:
   adminKey: ${KAKAO_ADMIN_KEY:}
 
 tourapi:
-  baseUrl: ${TOURAPI_BASE_URL:https://apis.data.go.kr/B551011/KorService1}
+  baseUrl: ${TOURAPI_BASE_URL:https://apis.data.go.kr/B551011/KorService2}
 
 # CORS 허용 오리진()
 cors:

@@ -1,3 +1,4 @@
+# docker-compose.base.yml
 networks:
   web: {}
   internal: {}
@@ -51,11 +52,9 @@ services:
       timeout: 5s
       retries: 30
 
+  # app은 base에서는 공통 설정만 두고,
+  # 'image/build'는 dev/prod 오버라이드에서 결정합니다.
   app:
-    image: ${DOCKER_IMAGE:-gundaero-alley-api:dev}
-    build:
-      context: .
-      dockerfile: Dockerfile
     container_name: app
     restart: unless-stopped
     env_file:

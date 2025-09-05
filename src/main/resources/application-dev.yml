@@ -7,20 +7,20 @@ spring:
   application:
     name: gundaero-alley-api
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/appdb?useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Seoul}
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://127.0.0.1:3306/appdb?useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Seoul}
     username: ${SPRING_DATASOURCE_USERNAME:alley_dev}
     password: ${SPRING_DATASOURCE_PASSWORD:devpass104}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   data:
     redis:
-      host: ${SPRING_REDIS_HOST:localhost}
+      host: ${SPRING_REDIS_HOST:127.0.0.1}
       port: ${SPRING_REDIS_PORT:6379}
       password: ${SPRING_REDIS_PASSWORD:}  # 비밀번호
 
 mybatis:
   mapper-locations: classpath*:mapper/**/*.xml
-  type-aliases-package: com.gundaero.alley.**.entity
+  # type-aliases-package: com.gundaero.alley.**.entity
   configuration:
     map-underscore-to-camel-case: true
     default-fetch-size: 100
@@ -37,17 +37,6 @@ springdoc:
 
 # JWT
 jwt:
-  token:
-    secret:
-      key: ${JWT_SECRET:dev-secret}
-  access:
-    token:
-      expiration:
-        seconds: ${JWT_ACCESS_TOKEN_TTL:900}
-  refresh:
-    token:
-      expiration:
-        seconds: ${JWT_REFRESH_TOKEN_TTL:1209600}
   secret: ${JWT_SECRET:dev-secret}
   access-ttl: ${JWT_ACCESS_TOKEN_TTL:900}
   refresh-ttl: ${JWT_REFRESH_TOKEN_TTL:1209600}
