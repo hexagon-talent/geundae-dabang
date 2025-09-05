@@ -44,7 +44,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
             // 기타
             "/favicon.ico",
-            "/error"
+            "/error",
+
+            // 츄가
+            "/api/ping",
+            "/api/**",
+
     };
 
     @Override
