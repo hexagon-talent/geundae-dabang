@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "User", description = "사용자 관련 API")
 @RestController
-@RequestMapping("/api/public/auth")
+@RequestMapping("/api/auth")
 @RequiredArgsConstructor
 @Slf4j
 public class UserController implements UserControllerDocs {
@@ -33,21 +33,21 @@ public class UserController implements UserControllerDocs {
     private final JwtTokenProvider jwtProvider;
 
 
-//    @PostMapping("/kakao")
-//    public ResponseEntity<ApiResponse<String>> kakaoLogin(
-//            @RequestBody KakaoLoginRequestDTO requestDTO, HttpServletResponse response) {
-//
-//        String kakaoAccessToken = requestDTO.getAccessToken();
-//
-//        KakaoProfileDTO profile = kakaoLoginService.getUserInfo(kakaoAccessToken);
-//
-//        User user = userService.upsertUser(profile);
-//
-//        String loginType = user.getCreatedAt().equals(user.getUpdatedAt()) ? "signUp" : "Login";
-//        KakaoLoginResponseDTO tokenDTO = kakaoLoginService.createTokens(user, loginType);
-//
-//        return ResponseEntity.ok(ApiResponse.success("tokenDTO", tokenDTO));
-//    }
+    @PostMapping("/kakao")
+    public ResponseEntity<ApiResponse<String>> kakaoLogin(
+            @RequestBody KakaoLoginRequestDTO requestDTO, HttpServletResponse response) {
+
+        String kakaoAccessToken = requestDTO.getAccessToken();
+
+        KakaoProfileDTO profile = kakaoLoginService.getUserInfo(kakaoAccessToken);
+
+        User user = userService.upsertUser(profile);
+
+        String loginType = user.getCreatedAt().equals(user.getUpdatedAt()) ? "signUp" : "Login";
+        KakaoLoginResponseDTO tokenDTO = kakaoLoginService.createTokens(user, loginType);
+
+        return ResponseEntity.ok(ApiResponse.success("tokenDTO", tokenDTO));
+    }
 
 
 
