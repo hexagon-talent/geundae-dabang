@@ -46,13 +46,4 @@ public class SwaggerConfig {
                                         .scheme("bearer")
                                         .bearerFormat("JWT")));
     }
-
-    @Bean
-    public GroupedOpenApi apiGroup() {
-        return GroupedOpenApi.builder()
-                .group("API")
-                .pathsToMatch("/api/**")
-                .pathsToExclude("/error", "/actuator/**")
-                .build();
-    }
 }

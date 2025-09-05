@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "User", description = "사용자 관련 API")
 @RestController
-@Profile("dev")
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 @Slf4j
