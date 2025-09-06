@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gundaero.alley.domain.tour.dao.TourDAO">
+
+    <resultMap id="TourLocationMap" type="com.gundaero.alley.domain.tour.entity.TourLocation">
+        <id     property="id"            column="id"/>
+        <result property="contentId"     column="content_id"/>
+        <result property="title"         column="title"/>
+        <result property="description"   column="description"/>
+
+        <result property="latitude"      column="latitude"/>
+        <result property="longitude"     column="longitude"/>
+
+        <result property="centerPointWkt" column="center_point_wkt"/>
+        <result property="edgePointsWkt"  column="edge_points_wkt"/>
+
+        <result property="createdAt"     column="created_at"/>
+        <result property="updatedAt"     column="updated_at"/>
+    </resultMap>
+
+    <select id="findById" parameterType="long" resultMap="TourLocationMap">
+        SELECT
+        id,
+        content_id,
+        title,
+        description,
+        latitude,
+        longitude,
+        ST_AsText(center_point) AS center_point_wkt,
+        ST_AsText(edge_points)  AS edge_points_wkt,
+        created_at,
+        updated_at
+        FROM tour_location
+        WHERE id = #{id}
+    </select>
+
+
+</mapper>
