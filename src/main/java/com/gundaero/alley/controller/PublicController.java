@@ -35,10 +35,4 @@ public class PublicController {
     public Map<String, Object> ping() {
         return Map.of("ok", true);
     }
-    @GetMapping("/api/ping")
-    public Map<String, Object> ping2() {
-        return Map.of("ok", true);
-    }
-
-
 }
