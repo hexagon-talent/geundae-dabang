@@ -35,7 +35,9 @@ kakao:
   adminKey: ${KAKAO_ADMIN_KEY:}
 
 tourapi:
-  baseUrl: ${TOURAPI_BASE_URL:https://apis.data.go.kr/B551011/KorService2}
+  base-url: ${TOURAPI_BASE_URL:https://apis.data.go.kr/B551011/KorService2}
+  app-name: ${TOURAPI_APP_NAME:GEUNDAERO}
+  service-key: ${TOURAPI_SERVICE_KEY:}
 
 # CORS 허용 오리진()
 cors:
