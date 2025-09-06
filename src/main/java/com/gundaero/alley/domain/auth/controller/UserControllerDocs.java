@@ -12,37 +12,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 public interface UserControllerDocs {
-//    @Operation(
-//            summary = "카카오 로그인 & 회원가입",
-//            description =
-//                    "카카오 액세스 토큰을 이용해 사용자를 로그인하거나, 최초 로그인 시 회원가입을 진행합니다.\n\n" +
-//                            "1️⃣ **동작:**\n" +
-//                            "- DB에 해당 카카오 사용자가 존재하면 → 로그인 처리 후 **HttpOnly 쿠키**에 토큰 저장\n" +
-//                            "- 존재하지 않으면 → 회원가입 처리 후 **HttpOnly 쿠키**에 토큰 저장\n\n" +
-//                            "2️⃣ **요청 Body:**\n" +
-//                            "```json\n" +
-//                            "{\n" +
-//                            "  \"accessToken\": \"카카오에서 발급받은 액세스 토큰\"\n" +
-//                            "}\n" +
-//                            "```\n\n" +
-//                            "3️⃣ **응답 예시:**\n\n" +
-//                            "```json\n" +
-//                            "{\n" +
-//                            "  \"code\": \"0\",\n" +
-//                            "  \"message\": \"정상 처리 되었습니다.\",\n" +
-//                            "  \"data\": {\n" +
-//                            "    \"tokenDTO\": {\n" +
-//                            "      \"type\": \"Login\",\n" +
-//                            "      \"accessToken\": \"eyJhbGciOiJIUzI1NiJ9.eyJpZCI6Miwic3ViIjoidmxmNTIzMUBuYXZlci5jb20iLCJleHAiOjE3NTU1MjQ4NzF9...\",\n" +
-//                            "      \"refreshToken\": \"e3247b5f-7894-4fde-8024-1ab96ef5303e\"\n" +
-//                            "    }\n" +
-//                            "  }\n" +
-//                            "}\n" +
-//                            "```\n\n" +
-//                            "※ 회원가입 시에는 `type`이 \"signUp\"으로 반환됩니다."
-//    )
-//    public ResponseEntity<ApiResponse<String>> kakaoLogin(@RequestBody KakaoLoginRequestDTO requestDTO,
-//                                                          HttpServletResponse response);
+    @Operation(
+            summary = "카카오 로그인 & 회원가입",
+            description =
+                    "카카오 액세스 토큰을 이용해 사용자를 로그인하거나, 최초 로그인 시 회원가입을 진행합니다.\n\n" +
+                            "1️⃣ **동작:**\n" +
+                            "- DB에 해당 카카오 사용자가 존재하면 → 로그인 처리 후 **HttpOnly 쿠키**에 토큰 저장\n" +
+                            "- 존재하지 않으면 → 회원가입 처리 후 **HttpOnly 쿠키**에 토큰 저장\n\n" +
+                            "2️⃣ **요청 Body:**\n" +
+                            "```json\n" +
+                            "{\n" +
+                            "  \"accessToken\": \"카카오에서 발급받은 액세스 토큰\"\n" +
+                            "}\n" +
+                            "```\n\n" +
+                            "3️⃣ **응답 예시:**\n\n" +
+                            "```json\n" +
+                            "{\n" +
+                            "  \"code\": \"0\",\n" +
+                            "  \"message\": \"정상 처리 되었습니다.\",\n" +
+                            "  \"data\": {\n" +
+                            "    \"tokenDTO\": {\n" +
+                            "      \"type\": \"Login\",\n" +
+                            "      \"accessToken\": \"eyJhbGciOiJIUzI1NiJ9.eyJpZCI6Miwic3ViIjoidmxmNTIzMUBuYXZlci5jb20iLCJleHAiOjE3NTU1MjQ4NzF9...\",\n" +
+                            "      \"refreshToken\": \"e3247b5f-7894-4fde-8024-1ab96ef5303e\"\n" +
+                            "    }\n" +
+                            "  }\n" +
+                            "}\n" +
+                            "```\n\n" +
+                            "※ 회원가입 시에는 `type`이 \"signUp\"으로 반환됩니다."
+    )
+    public ResponseEntity<ApiResponse<String>> kakaoLogin(@RequestBody KakaoLoginRequestDTO requestDTO,
+                                                          HttpServletResponse response);
 
     @Operation(
             summary = "로그아웃",
