@@ -107,10 +107,10 @@ public interface UserControllerDocs {
                             "```json\n" +
                             "{\n" +
                             "    \"id\": 1,\n" +
-                            "    \"name\": \"제갈민\",\n" +
-                            "    \"email\": \"vlf5231@naver.com\",\n" +
-                            "    \"profileImage\": \"http://k.kakaocdn.net/dn/cSHHQ0/btsOQJnCkGs/yQftKlYHpYrbuMD1j4Sggk/img_640x640.jpg\",\n" +
-                            "    \"kakaoId\": 4402836222,\n" +
+                            "    \"name\": \"홍길동\",\n" +
+                            "    \"email\": \"gildong@naver.com\",\n" +
+                            "    \"profileImage\": \"http://k.kakaocdn.net/dn/cSHHQ0/btsOQJnCkGs/yQftKl/img_640x640.jpg\",\n" +
+                            "    \"kakaoId\": 44028361232,\n" +
                             "    \"createdAt\": \"2025-08-18T21:10:25\",\n" +
                             "    \"updatedAt\": \"2025-08-18T21:10:25\"\n" +
                             "}\n" +

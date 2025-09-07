@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface S3ControllerDocs {
 
     @Operation(
-            summary = "Presigned PUT URL 발급 (클라이언트 직접 업로드용)",
+            summary = "Presigned PUT URL 발급 (프론트 사용 X)",
             description =
                     """
                     클라이언트가 S3에 직접 업로드할 수 있도록 Presigned PUT URL을 발급합니다.
@@ -51,7 +51,7 @@ public interface S3ControllerDocs {
 
 
     @Operation(
-            summary = "Presigned GET URL 발급 (보기용)",
+            summary = "Presigned GET URL 발급 (보기용) (프론트 사용 X)",
             description =
                     """
                     S3에 저장된 객체의 key를 입력받아, 제한시간 동안 유효한 Presigned GET URL을 반환합니다.
