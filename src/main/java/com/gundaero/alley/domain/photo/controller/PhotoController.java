@@ -4,6 +4,7 @@ import com.gundaero.alley.common.ApiResponse;
 import com.gundaero.alley.domain.photo.dto.request.PhotoCompleteRequestDTO;
 import com.gundaero.alley.domain.photo.dto.request.PhotoUploadRequestDTO;
 import com.gundaero.alley.domain.photo.dto.response.PhotoCompleteResponseDTO;
+import com.gundaero.alley.domain.photo.dto.response.PhotoListItemDTO;
 import com.gundaero.alley.domain.photo.dto.response.PhotoUploadResponseDTO;
 import com.gundaero.alley.domain.photo.service.PhotoService;
 import com.gundaero.alley.domain.s3.service.S3PresignService;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URL;
 import java.time.Duration;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -55,5 +57,14 @@ public class PhotoController implements PhotoControllerDocs {
         Long userId = me.getUser().getId();
         PhotoCompleteResponseDTO payload = photoService.complete(userId, req.locationId(), req.key());
         return ResponseEntity.ok(ApiResponse.success("photo", payload));
+    }
+
+    @GetMapping("/my")
+    public ResponseEntity<ApiResponse<List<PhotoListItemDTO>>> myPhotos(
+            @AuthenticationPrincipal CustomUserDetail me
+    ) {
+        Long userId = me.getUser().getId();
+        List<PhotoListItemDTO> list = photoService.listMyPhotos(userId);
+        return ResponseEntity.ok(ApiResponse.success("photos", list));
     }
 }
