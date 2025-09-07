@@ -43,6 +43,5 @@
         ON tl.id = utl.tour_location_id
         WHERE utl.user_id = #{userId}
         AND utl.photo_url IS NOT NULL
-        ORDER BY utl.updated_at DESC
     </select>
 </mapper>
