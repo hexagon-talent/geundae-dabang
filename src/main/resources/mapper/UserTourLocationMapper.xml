@@ -12,7 +12,11 @@
         <result column="created_at"        property="createdAt"/>
         <result column="updated_at"        property="updatedAt"/>
     </resultMap>
-
+    <resultMap id="PhotoRowMap" type="com.gundaero.alley.domain.photo.entity.PhotoRow">
+        <result column="tour_location_id" property="tourLocationId"/>
+        <result column="location_title"   property="locationTitle"/>
+        <result column="photo_url"        property="photoUrl"/>
+    </resultMap>
 
     <insert id="upsert" parameterType="com.gundaero.alley.domain.photo.entity.UserTourLocation">
         INSERT INTO user_tour_location (user_id, tour_location_id, photo_url)
@@ -29,5 +33,16 @@
         AND tour_location_id = #{locationId}
         LIMIT 1
     </select>
-
+    <select id="findAllByUserWithTitle" resultMap="PhotoRowMap">
+        SELECT
+        utl.tour_location_id,
+        tl.title       AS location_title,
+        utl.photo_url
+        FROM user_tour_location utl
+        JOIN tour_location tl
+        ON tl.id = utl.tour_location_id
+        WHERE utl.user_id = #{userId}
+        AND utl.photo_url IS NOT NULL
+        ORDER BY utl.updated_at DESC
+    </select>
 </mapper>

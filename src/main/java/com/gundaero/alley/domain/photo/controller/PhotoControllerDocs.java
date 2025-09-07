@@ -5,11 +5,14 @@ import com.gundaero.alley.domain.auth.entity.CustomUserDetail;
 import com.gundaero.alley.domain.photo.dto.request.PhotoCompleteRequestDTO;
 import com.gundaero.alley.domain.photo.dto.request.PhotoUploadRequestDTO;
 import com.gundaero.alley.domain.photo.dto.response.PhotoCompleteResponseDTO;
+import com.gundaero.alley.domain.photo.dto.response.PhotoListItemDTO;
 import com.gundaero.alley.domain.photo.dto.response.PhotoUploadResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.List;
 
 public interface PhotoControllerDocs {
 
@@ -91,5 +94,42 @@ public interface PhotoControllerDocs {
     ResponseEntity<ApiResponse<PhotoCompleteResponseDTO>> complete(
             @AuthenticationPrincipal CustomUserDetail me,
             @RequestBody PhotoCompleteRequestDTO req
+    );
+
+    @Operation(
+            summary = "내가 업로드한 모든 사진 조회 (locationId, locationName, url)",
+            description =
+                    """
+                    현재 로그인한 사용자가 업로드한 모든 사진을 최신순으로 반환합니다.
+                    `url`은 S3 presigned GET URL이라 유효시간 내에서 바로 이미지 표시가 가능합니다.
+                    
+                    1️⃣ 요청 헤더:
+                    - `Authorization: Bearer {accessToken}`
+                    
+                    2️⃣ 응답 구조 (ApiResponse):
+                    ```json
+                    {
+                      "code": "0",
+                      "message": "정상 처리 되었습니다.",
+                      "data": {
+                        "photos": [
+                          {
+                            "locationId": 1,
+                            "locationName": "청라언덕",
+                            "url": "https://gundaero-alley-prod-bucket.s3.ap-northeast-2.amazonaws.com/photos/3/1/....png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=..."
+                          },
+                          {
+                            "locationId": 7,
+                            "locationName": "약령시 한방문화체험",
+                            "url": "https://gundaero-alley-prod-bucket.s3.ap-northeast-2.amazonaws.com/photos/3/7/....jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=..."
+                          }
+                        ]
+                      }
+                    }
+                    ```
+                    """
+    )
+    ResponseEntity<ApiResponse<List<PhotoListItemDTO>>> myPhotos(
+            @AuthenticationPrincipal CustomUserDetail me
     );
 }
