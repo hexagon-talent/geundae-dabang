@@ -100,7 +100,7 @@ public interface PhotoControllerDocs {
             summary = "내가 업로드한 모든 사진 조회 (locationId, locationName, url)",
             description =
                     """
-                    현재 로그인한 사용자가 업로드한 모든 사진을 최신순으로 반환합니다.
+                    현재 로그인한 사용자가 업로드한 모든 사진을 반환합니다.
                     `url`은 S3 presigned GET URL이라 유효시간 내에서 바로 이미지 표시가 가능합니다.
                     
                     1️⃣ 요청 헤더:
