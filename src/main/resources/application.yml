@@ -52,3 +52,20 @@ springdoc:
     path: /swagger-ui.html
   cache:
     disabled: true
+
+#upload:
+#  max-size: 5242880 # 5MB
+#  allowed-ext: jpg,jpeg,png
+#  put-ttl-sec: 300
+#  get-ttl-sec: 300
+
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: DEBUG
+    org.springframework.web.client: DEBUG
+    org.springframework.web.servlet: DEBUG
+    org.apache.coyote.http11: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n"
