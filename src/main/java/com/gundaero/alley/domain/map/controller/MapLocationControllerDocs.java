@@ -43,7 +43,7 @@ public interface MapLocationControllerDocs {
                     ```
                     """
     )
-    public ResponseEntity<Map<String, List<MapLocationResponseDTO>>> getAll();
+    public ResponseEntity<ApiResponse<Object>> getAll();
 
     @Operation(
             summary = "지도 위치 단건 조회",
@@ -84,5 +84,5 @@ public interface MapLocationControllerDocs {
                     ```
                     """
     )
-    public ResponseEntity<Map<String, Object>> getOne(@PathVariable Long locationId) ;
+    public ResponseEntity<ApiResponse<Object>> getOne(@PathVariable Long locationId);
 }
