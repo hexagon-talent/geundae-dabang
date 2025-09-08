@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gundaero.alley.domain.map.dao.MapLocationDAO">
+
+    <select id="findAllAsGeoJson" resultType="map">
+        SELECT
+        id,
+        title,
+        ST_AsGeoJSON(center_point) AS center_geojson,
+        ST_AsGeoJSON(edge_points)  AS polygon_geojson
+        FROM tour_location
+        ORDER BY id ASC
+    </select>
+
+    <select id="findOneAsGeoJson" parameterType="long" resultType="map">
+        SELECT
+        id,
+        title,
+        ST_AsGeoJSON(center_point) AS center_geojson,
+        ST_AsGeoJSON(edge_points)  AS polygon_geojson
+        FROM tour_location
+        WHERE id = #{id}
+        LIMIT 1
+    </select>
+
+</mapper>

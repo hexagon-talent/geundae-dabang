@@ -24,7 +24,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/photos")
 @RequiredArgsConstructor
-@Tag(name = "Photo", description = "사진 관련")
+@Tag(name = "Photo", description = "사진 관련 API")
 public class PhotoController implements PhotoControllerDocs {
 
     private final S3PresignService presignService;
