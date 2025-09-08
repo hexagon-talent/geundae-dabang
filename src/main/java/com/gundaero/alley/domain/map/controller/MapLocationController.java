@@ -1,14 +1,18 @@
 package com.gundaero.alley.domain.map.controller;
 
 import com.gundaero.alley.common.ApiResponse;
+import com.gundaero.alley.domain.auth.entity.CustomUserDetail;
 import com.gundaero.alley.domain.map.service.MapLocationQueryService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/map/locations")
 @RequiredArgsConstructor
+@Tag(name = "Polygon", description = "지도 관련 API")
 public class MapLocationController implements MapLocationControllerDocs {
 
     private final MapLocationQueryService service;
@@ -34,4 +38,14 @@ public class MapLocationController implements MapLocationControllerDocs {
                         )
                 );
     }
+
+    @GetMapping("/uploaded-status")
+    @Override
+    public ResponseEntity<ApiResponse<Object>> getMyUploadStatus(
+            @AuthenticationPrincipal CustomUserDetail user
+    ) {
+        var list = service.getUploadStatusByUser(user.getUser().getId());
+        return ResponseEntity.ok(ApiResponse.success("data", list));
+    }
+
 }

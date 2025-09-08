@@ -3,6 +3,7 @@ package com.gundaero.alley.domain.map.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gundaero.alley.domain.map.dto.response.LatLng;
 import com.gundaero.alley.domain.map.dto.response.MapLocationResponseDTO;
+import com.gundaero.alley.domain.map.dto.response.MapLocationUploadStatusResponseDTO;
 import com.gundaero.alley.domain.map.dao.MapLocationDAO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -88,4 +89,24 @@ public class MapLocationQueryService {
             throw new RuntimeException("유효하지 않은 GeoJSON: " + s, e);
         }
     }
+
+    public List<MapLocationUploadStatusResponseDTO> getUploadStatusByUser(Long userId) {
+        List<Map<String, Object>> rows = mapper.findAllUploadStatusByUser(userId);
+        List<MapLocationUploadStatusResponseDTO> result = new ArrayList<>(rows.size());
+        for (var r : rows) {
+            Long locationId = ((Number) r.get("location_id")).longValue();
+            String title    = (String) r.get("title");
+            boolean uploaded = toBoolean(r.get("uploaded"));
+            result.add(new MapLocationUploadStatusResponseDTO(locationId, title, uploaded));
+        }
+        return result;
+    }
+
+    private boolean toBoolean(Object v) {
+        if (v instanceof Boolean b) return b;
+        if (v instanceof Number n)  return n.intValue() != 0;
+        if (v instanceof String s)  return "true".equalsIgnoreCase(s) || "1".equals(s);
+        return false;
+    }
+
 }

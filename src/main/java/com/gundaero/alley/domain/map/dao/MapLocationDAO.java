@@ -10,4 +10,5 @@ import java.util.Map;
 public interface MapLocationDAO {
     List<Map<String, Object>> findAllAsGeoJson();
     Map<String, Object> findOneAsGeoJson(@Param("id") Long id);
+    List<Map<String, Object>> findAllUploadStatusByUser(@Param("userId") Long userId);
 }

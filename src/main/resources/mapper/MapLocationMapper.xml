@@ -25,5 +25,19 @@
         WHERE id = #{id}
         LIMIT 1
     </select>
-
+    <select id="findAllUploadStatusByUser" parameterType="long" resultType="map">
+        SELECT
+        tl.id   AS location_id,
+        tl.title,
+        EXISTS (
+        SELECT 1
+        FROM photo p
+        WHERE p.user_id     = #{userId}
+        AND p.location_id = tl.id
+        /* AND p.status = 'COMPLETED' */
+        LIMIT 1
+        ) AS uploaded
+        FROM tour_location tl
+        ORDER BY tl.id ASC
+    </select>
 </mapper>
