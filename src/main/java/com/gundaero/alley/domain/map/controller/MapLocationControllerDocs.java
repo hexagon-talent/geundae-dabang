@@ -1,10 +1,12 @@
 package com.gundaero.alley.domain.map.controller;
 
 import com.gundaero.alley.common.ApiResponse;
+import com.gundaero.alley.domain.auth.entity.CustomUserDetail;
 import com.gundaero.alley.domain.map.dto.response.MapLocationResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
@@ -85,4 +87,29 @@ public interface MapLocationControllerDocs {
                     """
     )
     public ResponseEntity<ApiResponse<Object>> getOne(@PathVariable Long locationId);
+
+    @Operation(
+            summary = "모든 위치별 사진 업로드 여부",
+            description = """
+            로그인한 사용자가 각 location에 사진을 올렸는지 여부를 반환합니다.
+
+            값의 의미: uploaded = true(올림) / false(안 올림)  
+
+            2️⃣ 응답 구조:
+            ```json
+            {
+              "code": "0",
+              "message": "정상 처리 되었습니다.",
+              "data": [
+                { "locationId": 1, "title": "동산청라언덕", "uploaded": true  },
+                { "locationId": 2, "title": "3.1만세운동길", "uploaded": false },
+                { "locationId": 3, "title": "계산성당",   "uploaded": true  }
+              ]
+            }
+            ```
+            """
+    )
+    public ResponseEntity<ApiResponse<Object>> getMyUploadStatus(
+            @AuthenticationPrincipal CustomUserDetail user
+    );
 }
