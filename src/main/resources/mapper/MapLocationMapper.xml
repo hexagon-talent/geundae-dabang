@@ -27,14 +27,14 @@
     </select>
     <select id="findAllUploadStatusByUser" parameterType="long" resultType="map">
         SELECT
-        tl.id   AS location_id,
-        tl.title,
+        tl.id    AS location_id,
+        tl.title AS title,
+        /* MySQL에서 EXISTS는 0/1을 반환 -> uploaded 별칭으로 넘김 */
         EXISTS (
         SELECT 1
-        FROM photo p
-        WHERE p.user_id     = #{userId}
-        AND p.location_id = tl.id
-        /* AND p.status = 'COMPLETED' */
+        FROM user_tour_location utl
+        WHERE utl.user_id          = #{userId}
+        AND utl.tour_location_id = tl.id
         LIMIT 1
         ) AS uploaded
         FROM tour_location tl
