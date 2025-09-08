@@ -92,17 +92,17 @@ public class MapLocationQueryService {
 
     public List<MapLocationUploadStatusResponseDTO> getUploadStatusByUser(Long userId) {
         List<Map<String, Object>> rows = mapper.findAllUploadStatusByUser(userId);
-        List<MapLocationUploadStatusResponseDTO> result = new ArrayList<>(rows.size());
+        List<MapLocationUploadStatusResponseDTO> out = new ArrayList<>(rows.size());
         for (var r : rows) {
-            Long locationId = ((Number) r.get("location_id")).longValue();
-            String title    = (String) r.get("title");
-            boolean uploaded = toBoolean(r.get("uploaded"));
-            result.add(new MapLocationUploadStatusResponseDTO(locationId, title, uploaded));
+            Long   locationId = ((Number) r.get("location_id")).longValue();
+            String title      = (String) r.get("title");
+            boolean uploaded  = toBool(r.get("uploaded"));
+            out.add(new MapLocationUploadStatusResponseDTO(locationId, title, uploaded));
         }
-        return result;
+        return out;
     }
 
-    private boolean toBoolean(Object v) {
+    private boolean toBool(Object v) {
         if (v instanceof Boolean b) return b;
         if (v instanceof Number n)  return n.intValue() != 0;
         if (v instanceof String s)  return "true".equalsIgnoreCase(s) || "1".equals(s);
