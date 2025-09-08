@@ -104,11 +104,13 @@ public interface MapLocationControllerDocs {
             {
               "code": "0",
               "message": "정상 처리 되었습니다.",
-              "data": [
-                { "locationId": 1, "title": "동산청라언덕", "uploaded": true  },
-                { "locationId": 2, "title": "3.1만세운동길", "uploaded": false },
-                { "locationId": 3, "title": "계산성당",   "uploaded": true  }
-              ]
+              "data" : {
+                  "data": [
+                    { "locationId": 1, "title": "동산청라언덕", "uploaded": true  },
+                    { "locationId": 2, "title": "3.1만세운동길", "uploaded": false },
+                    { "locationId": 3, "title": "계산성당",   "uploaded": true  }
+                  ]
+               }
             }
             ```
             """
