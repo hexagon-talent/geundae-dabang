@@ -1,6 +1,7 @@
 package com.gundaero.alley.domain.tour.controller;
 
 import com.gundaero.alley.common.ApiResponse;
+import com.gundaero.alley.domain.tour.dto.request.TestRequestDTO;
 import com.gundaero.alley.domain.tour.dto.response.LocationBasedFoodResponseDTO;
 import com.gundaero.alley.domain.tour.dto.response.TourOverviewResponseDTO;
 import com.gundaero.alley.domain.tour.service.TourService;
@@ -84,6 +85,13 @@ public class TourController implements TourControllerDocs {
 
 
         return ResponseEntity.ok(ApiResponse.success("events", payload));
+    }
+
+    @PostMapping
+    public ResponseEntity<ApiResponse<Void>> saveUserTourLocations(
+            @RequestBody TestRequestDTO request) {
+        tourService.saveUserTourLocations(request);
+        return ResponseEntity.ok(ApiResponse.success("result", null));
     }
 
 }

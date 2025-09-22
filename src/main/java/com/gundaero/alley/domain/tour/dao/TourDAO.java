@@ -1,5 +1,6 @@
 package com.gundaero.alley.domain.tour.dao;
 
+import com.gundaero.alley.domain.tour.dto.request.TestRequestDTO;
 import com.gundaero.alley.domain.tour.entity.TourLocation;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -7,4 +8,6 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface TourDAO {
     TourLocation findById(@Param("id") Long id);
+    void insertOrUpdateUserTourLocations(TestRequestDTO request);
+
 }

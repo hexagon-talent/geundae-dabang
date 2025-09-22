@@ -2,6 +2,7 @@ package com.gundaero.alley.domain.tour.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gundaero.alley.domain.tour.dto.request.TestRequestDTO;
 import com.gundaero.alley.domain.tour.dto.response.LocationBasedFoodResponseDTO;
 import com.gundaero.alley.util.TextSanitizer;
 import com.gundaero.alley.domain.tour.dao.TourDAO;
@@ -11,6 +12,7 @@ import com.gundaero.alley.external.TourApiClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -147,6 +149,11 @@ public class TourService {
 
 
         return list;
+    }
+
+    @Transactional
+    public void saveUserTourLocations(TestRequestDTO request) {
+        tourDAO.insertOrUpdateUserTourLocations(request);
     }
 
 }
