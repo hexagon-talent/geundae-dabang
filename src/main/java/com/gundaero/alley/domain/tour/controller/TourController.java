@@ -88,9 +88,8 @@ public class TourController implements TourControllerDocs {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<Void>> saveUserTourLocations(
-            @RequestBody TestRequestDTO request) {
-        tourService.saveUserTourLocations(request);
+    public ResponseEntity<ApiResponse<Void>> saveUserTourLocations(@RequestBody TestRequestDTO req) {
+        tourService.saveUserTourLocations(req.userId(), req.tourLocationIds(), req.photoUrl());
         return ResponseEntity.ok(ApiResponse.success("result", null));
     }
 

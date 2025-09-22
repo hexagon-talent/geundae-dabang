@@ -152,8 +152,8 @@ public class TourService {
     }
 
     @Transactional
-    public void saveUserTourLocations(TestRequestDTO request) {
-        tourDAO.insertOrUpdateUserTourLocations(request);
+    public void saveUserTourLocations(Long userId, List<Long> tourLocationIds, String photoUrl) {
+        tourDAO.insertOrUpdateUserTourLocations(userId, tourLocationIds, photoUrl);
     }
 
 }

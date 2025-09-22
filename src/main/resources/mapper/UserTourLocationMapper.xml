@@ -45,15 +45,4 @@
         AND utl.photo_url IS NOT NULL
     </select>
 
-    <insert id="insertOrUpdateUserTourLocations">
-        INSERT INTO user_tour_location (photo_url, user_id, tour_location_id)
-        VALUES
-        <foreach collection="tourLocationIds" item="locId" separator=",">
-            (#{photoUrl}, #{userId}, #{locId})
-        </foreach>
-        ON DUPLICATE KEY UPDATE
-        photo_url = VALUES(photo_url),
-        updated_at = CURRENT_TIMESTAMP
-    </insert>
-
 </mapper>
