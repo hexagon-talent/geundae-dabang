@@ -75,6 +75,7 @@ public class SecurityConfig {
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                         .requestMatchers("/api/public/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/kakao", "/api/auth/reissue").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/tour").permitAll()
                         .requestMatchers("/login/oauth2/**", "/oauth2/**").permitAll()
 
                         // 그 외는 인증
