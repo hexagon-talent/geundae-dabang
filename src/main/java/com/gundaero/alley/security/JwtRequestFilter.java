@@ -41,8 +41,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             "/v3/api-docs/**",
             "/actuator/**",
             "/favicon.ico",
-            "/error"
-
+            "/error",
+            "/api/tour"
     };
 
     @Override
