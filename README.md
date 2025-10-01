@@ -44,12 +44,12 @@
 </p>
 
 <p align="center">
-  <img src="images/info1.png" width="150" style="margin-right:8px; border-radius:6px;">
-  <img src="images/info2.png" width="150" style="margin-right:8px; border-radius:6px;">
-  <img src="images/info3.png" width="150" style="margin-right:8px; border-radius:6px;">
-  <img src="images/info4.png" width="150" style="margin-right:8px; border-radius:6px;">
-  <img src="images/info5.png" width="150" style="margin-right:8px; border-radius:6px;">
-  <img src="images/info6.png" width="150" style="border-radius:6px;">
+  <img src="images/info1.png" width="100" style="margin-right:8px; border-radius:6px;">
+  <img src="images/info2.png" width="100" style="margin-right:8px; border-radius:6px;">
+  <img src="images/info3.png" width="100" style="margin-right:8px; border-radius:6px;">
+  <img src="images/info4.png" width="100" style="margin-right:8px; border-radius:6px;">
+  <img src="images/info5.png" width="100" style="margin-right:8px; border-radius:6px;">
+  <img src="images/info6.png" width="100" style="border-radius:6px;">
 </p>
 
 '근대로'는 대구 근대문화골목을 **GPS 기반 사진 미션**으로 탐방하고 기록하는 근대 골목 투어 앱입니다.
