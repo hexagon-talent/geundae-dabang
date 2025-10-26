@@ -1,8 +1,12 @@
 # docker-compose.base.yml
 networks:
-  web: {}
-  internal: {}
-
+  web:
+    external: true
+    name: alley_web
+  internal:
+    external: true
+    name: alley_internal
+    
 volumes:
   dbdata:
   redisdata:
