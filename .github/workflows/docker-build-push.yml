@@ -2,10 +2,17 @@ name: build-and-push-docker
 
 on:
   push:
-    branches: [ "main" ]     # main에 머지되면 latest 푸시
-    tags:     [ "v*.*.*" ]   # 릴리즈 태그도 푸시
+    branches: [ "main" ]
+    tags:     [ "v*.*.*" ]
+    # FE만 변경 시에는 BE 워크플로 스킵
+    paths-ignore:
+      - 'frontend/**'
+      - '.github/workflows/web-build-push.yml'
   pull_request:
     branches: [ "main" ]     # PR은 빌드만(푸시 X)
+    paths-ignore:
+      - 'frontend/**'
+      - '.github/workflows/web-build-push.yml'
 
 concurrency:
   group: ci-${{ github.ref }}
