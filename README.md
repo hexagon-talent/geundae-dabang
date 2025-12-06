@@ -77,52 +77,39 @@
 ### 2. 로그인 화면
 > 카카오 로그인으로 손쉽게 시작합니다.
 
-<p align="left">
-  <video src="images/login1.mp4" width="200" style="border-radius:8px;" autoplay loop muted playsinline></video>
-</p>
+<div align="left">
+  <img src="./images/login.gif" width="200" />
+</div>
 
 ---
 
 ### 3. 지도 탭
 > 카카오 지도 API 기반으로 근대문화골목 주요 장소를 표시하고, 사진 미션과 장소 설명을 제공합니다.
 
-<p align="left">
-  <img src="images/map1.jpg" width="200" style="margin-right:10px; border-radius:8px;">
+<div align="left" style="display:flex; gap:10px;">
+  <img src="images/map1.jpg" width="200" style="border-radius:8px;">
   <img src="images/map2.jpg" width="200" style="border-radius:8px;">
-</p>
-
-<p align="left">
-  <img src="images/map3.jpg" width="200" style="margin-right:10px; border-radius:8px;">
-  <img src="images/map4.jpg" width="200" style="margin-right:10px; border-radius:8px;">
-  <img src="images/map5.jpg" width="200" style="margin-right:10px; border-radius:8px;">
-  <img src="images/map6.jpg" width="200" style="border-radius:8px;">
-</p>
+  <img src="images/map.gif" width="200" style="border-radius:8px;">
+</div>
 
 ---
 
 ### 4. 근처 볼거리 탭
 > 현재 위치 기반으로 근처 행사·맛집을 추천합니다.
 
-<p align="left">
-  <img src="images/tour1.jpg" width="200" style="margin-right:10px; border-radius:8px;">
-  <img src="images/tour2.jpg" width="200" style="border-radius:8px;">
-</p>
+<div align="left">
+  <img src="./images/attraction.gif" width="200" />
+</div>
 
 ---
 
 ### 5. 기록 탭
 > 미션 수행 후 스탬프를 터치해 인증샷을 확인할 수 있습니다. 모든 미션을 완료하면 ‘대구 근대 여행 완료’ 엽서를 받을 수 있습니다.
 
-<p align="left">
-  <img src="images/stamp1.jpg" width="200" style="margin-right:10px; border-radius:8px;">
-  <img src="images/stamp2.jpg" width="200" style="margin-right:10px; border-radius:8px;">
-  <img src="images/stamp3.jpg" width="200" style="border-radius:8px;">
-</p>
-
-<p align="left">
-  <img src="images/stamp4.jpg" width="200" style="margin-right:10px; border-radius:8px;">
-  <img src="images/stamp5.jpg" width="200" style="border-radius:8px;">
-</p>
+<div align="left">
+  <img src="./images/postcard.gif" width="200" />
+  <img src="./images/stamp.gif" width="200" />
+</div>
 
 
 ---
@@ -169,6 +156,10 @@
 ---
 
 ## ERD (Entity Relationship Diagram)
+
+<p align="center">
+  <img src="images/erd.png" width="600"/>
+</p>
 
 ---
 
